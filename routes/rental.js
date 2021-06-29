@@ -4,10 +4,10 @@ const router = express.Router();
 const { Rental, validate } = require('.././models/rental');
 const Joi = require('joi');
 
-router.get('/', async((req, res) => {
+router.get('/', async (req, res) => {
     const rental = await Rental.find().sort('-dateOut');
     res.send(rental);
-}));
+});
 
 router.post('/:id', async(req, res) => {
     //validate the user input
@@ -43,3 +43,5 @@ router.post('/:id', async(req, res) => {
 
     res.send(rental);
 })
+
+module.exports = router;

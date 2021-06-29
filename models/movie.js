@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const { genreSchema, Genre } = require('./genre');
 
+mongoose.set('useCreateIndex', true);
+
 mongoose.connect('mongodb://localhost:27017/testDB', { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log("Connected to mongoDB..."))
 .catch((err) => console.log("Not connected to mongoDB...", err));
