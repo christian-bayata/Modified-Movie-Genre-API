@@ -15,13 +15,13 @@ const Rental = mongoose.model('Rental', new mongoose.Schema({
             isGold: {
                 type: Boolean,
                 //Default value is set to false unless set otherwise
-                default: false
+                default: false   
             },
-            Phone: {
-                type: Number,
+            phone: {
+                type: String,
                 required: true,
-                min: 5, 
-                max: 50
+                minlength: 5, 
+                maxlength: 1024
             }
         }),
         required: true
@@ -36,7 +36,7 @@ const Rental = mongoose.model('Rental', new mongoose.Schema({
                 maxlength: 50
      
              },
-             dailyRental: {
+             dailyRentalRate: {
                  type: Number,
                  required: true,
                  min: 0,
@@ -61,12 +61,12 @@ const Rental = mongoose.model('Rental', new mongoose.Schema({
 
 function validateRental(rental) {
     const schema = Joi.object({
-        customerId: Joi.string().required(),
-        movieId: Joi.string().required()              
+        customerId: Joi.objectId().required(),
+        movieId: Joi.objectId().required()              
     })   
 
     return schema.validate(rental);
 };
 
-exports.validate = validateRental();
+exports.validate = validateRental;
 exports.Rental = Rental;

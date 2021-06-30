@@ -14,24 +14,24 @@ const Customer = new mongoose.model('Customer', mongoose.Schema({
         //Default value is set to false unless set otherwise
         default: false
     },
-    Phone: {
-        type: Number,
+    phone: {
+        type: String,
         required: true,
-        min: 5, 
-        max: 50
+        minlength: 5,
+        maxlength: 50
     }
 }));
 
-async function createCustomer() {
-    const customer = new Customer({
-        name: "Jermaine",
-        isGold: true,
-        phone: 08024578987
+function validateCustomer(customer) {
+    const schema = Joi.object({
+        name: Joi.string().min(5).max(50).required(),
+        phone: Joi.string().min(5).required()
     });
-    const result = await customer.save();
-    console.log(result);
-}
 
-createCustomer();
+    return schema.validate(customer);
+};
+
+exports.validate = validateCustomer;
+exports.Customer = Customer;
     
         

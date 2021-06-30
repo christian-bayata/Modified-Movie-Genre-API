@@ -34,23 +34,23 @@ const Movie = mongoose.model('Movie',  new mongoose.Schema({
     }
 }));
 
-async function createMovie() {
-    const movie = new Movie({
-        title: "Prison Break",
-        genre: new Genre({
-            name: "Season/Action"
-        }),
-        numberInStock: 27,
-        dailyRentalRate: 15
-    });
-    const result = await movie.save();
-};
+// async function createMovie() {
+//     const movie = new Movie({
+//         title: "Prison Break",
+//         genre: new Genre({
+//             name: "Season/Action"
+//         }),
+//         numberInStock: 27,
+//         dailyRentalRate: 15
+//     });
+//     const result = await movie.save();
+// };
 
 
 function validateMovie(movie) {
     const schema = Joi.object({
         title: Joi.string().min(5).max(50).required(),
-        genreId: Joi.number().required(),
+        // genreId: Joi.number().required(),
         numberInStock: Joi.number().min(0).required(),
         dailyRentalRate: Joi.number().min(0).required()       
     })
