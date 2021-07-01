@@ -2,12 +2,6 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const { genreSchema, Genre } = require('./genre');
 
-mongoose.set('useCreateIndex', true);
-
-mongoose.connect('mongodb://localhost:27017/testDB', { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log("Connected to mongoDB..."))
-.catch((err) => console.log("Not connected to mongoDB...", err));
-
 const Movie = mongoose.model('Movie',  new mongoose.Schema({
     title: {
         type: String,
@@ -40,7 +34,7 @@ const Movie = mongoose.model('Movie',  new mongoose.Schema({
 //         genre: new Genre({
 //             name: "Season/Action"
 //         }),
-//         numberInStock: 27,
+//         numberInStock: 27,    
 //         dailyRentalRate: 15
 //     });
 //     const result = await movie.save();

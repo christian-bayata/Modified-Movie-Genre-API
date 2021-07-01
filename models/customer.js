@@ -11,7 +11,7 @@ const Customer = new mongoose.model('Customer', mongoose.Schema({
     },
     isGold: {
         type: Boolean,
-        //Default value is set to false unless set otherwise
+        //Default value is set to false unless set otherwise   
         default: false
     },
     phone: {
