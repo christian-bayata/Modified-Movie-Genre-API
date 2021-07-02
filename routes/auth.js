@@ -1,3 +1,5 @@
+const privates = require('../config/privates');
+require('dotenv').config();
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
@@ -23,8 +25,8 @@ router.post('/', async (req, res) => {
     if(!passwordValidate) return res.status(400).send("Invalid email or password");
 
     //Generate a token
-    const token = jwt.sign({ _id: user._id }, 'privateKey');
-     res.send(token);
+    const token = jwt.sign({ _id: user._id }, 'jwt_PrivateKey') 
+        res.send(token);
 });
 
 function validate(req) {

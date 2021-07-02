@@ -15,12 +15,12 @@ const Genre = new mongoose.model('Genre', genreSchema);
 
 //Input validation with Joi
 
-async function createGenre() {
-    const genre = new Genre({
-        name: "Sci-Fi"
-    })
-    const result = await genre.save();
-};
+// async function createGenre() {
+//     const genre = new Genre({
+//         name: "Sci-Fi"
+//     })
+//     const result = await genre.save();
+// };
 
 
 function validateGenre(genre) {
