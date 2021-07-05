@@ -26,11 +26,13 @@ router.post('/', async (req, res) => {
 
     //Generate a token
     const token = jwt.sign({ _id: user._id }, 'jwt_PrivateKey') 
-        res.send(token);
+    res.send(token);
 });
 
 function validate(req) {
     const schema = Joi.object({
+    
+    
         email: Joi.string().min(5).max(255).required().email(),
         password: Joi.string().min(5).max(1024).required(),
     })   

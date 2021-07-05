@@ -1,3 +1,5 @@
+require('express-async-errors');
+const error = require('./middleware/error');
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -30,6 +32,8 @@ app.use("/api/users", users);
 app.use("/api/genres", genres);
 app.use("/api/customers", customers);
 app.use("/api/auth", auth);
+//Error Handler Middleware
+app.use(error);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is currently running on ${port}...`));

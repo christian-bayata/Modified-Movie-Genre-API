@@ -1,3 +1,4 @@
+const authToken = require('../middleware/auth');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
     res.send(rental);
 });
 
-router.post('/', async(req, res) => {
+router.post('/', authToken, async(req, res) => {
     //validate the user input
     const { error } = validate(req.body);
     if(error) return res.status(404).send(error.details[0].message);

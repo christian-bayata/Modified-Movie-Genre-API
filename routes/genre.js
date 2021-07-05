@@ -1,15 +1,18 @@
+const asyncErrorMiddleware = require('../middleware/asyncerror');
+const admin = require('../middleware/admin');
+const authToken = require('../middleware/auth');
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const { genreSchema, Genre, validate } = require('../models/genre');
 
-router.get('/', async (req, res) => {
+router.get('/', asyncErrorMiddleware(async (req, res) => {
     const genre = await Genre.find().sort('name');
     res.send(genre);
-});
+}));
 
-router.post('/', async (req, res) => {
+router.post('/', authToken, async (req, res) => {
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     
@@ -24,7 +27,7 @@ router.put('/:id', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
 
     let genre = await Genre.findById(req.params.id);
-    if(!genre) return res.status(400).send('Invlid input');
+    if(!genre) return res.status(400).send('Invalid input');
 
     genre.name = req.body.name
     genre.save()
@@ -32,12 +35,11 @@ router.put('/:id', async (req, res) => {
     res.send(genre);
 });
 
-router.delete('/:id', async (req, res) => {
-    const { error } = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+router.delete('/:id', [ authToken, admin ], async (req, res) => {
+   
+    const genre = await Genre.findOneAndDelete(req.params.id);
 
-    let genre = await Genre.findOneAndDelete(req.params.id);
-    if(!genre) return res.status(400).send('Invlid input');
+    if(!genre) return res.status(400).send('Invalid input');
     
     res.send(genre);
 })
