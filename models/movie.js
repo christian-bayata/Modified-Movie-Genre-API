@@ -28,18 +28,19 @@ const Movie = mongoose.model('Movie',  new mongoose.Schema({
     }
 }));
 
-// async function createMovie() {
-//     const movie = new Movie({
-//         title: "Prison Break",
-//         genre: new Genre({
-//             name: "Season/Action"
-//         }),
-//         numberInStock: 27,    
-//         dailyRentalRate: 15
-//     });
-//     const result = await movie.save();
-// };
+async function createMovie() {
+    const movie = new Movie({
+        title: "Titanic",
+        genre: new Genre({
+            name: "Romance"
+        }),
+        numberInStock: 20,    
+        dailyRentalRate: 6
+    });
+    const result = await movie.save();
+};
 
+createMovie();
 
 function validateMovie(movie) {
     const schema = Joi.object({

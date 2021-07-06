@@ -1,3 +1,5 @@
+const winston = require('winston');
+require('winston-mongodb');
 require('express-async-errors');
 const error = require('./middleware/error');
 const express = require('express');
@@ -19,7 +21,11 @@ mongoose.connect('mongodb://localhost:27017/testDB', {
     useCreateIndex: true 
 })
 .then(() => console.log("Connected to mongoDB..."))
-.catch((err) => console.log("Not connected to mongoDB...", err));
+.catch((err) => console.log("Not connected to mongoDB..."));
+
+winston.add(winston.transports.File, { filename: 'logFile.log' });
+winston.add(winston.transports.MongoDB, { db: 'mongodb://localhost:27017/testDB' });
+
 
 //Middleware
 app.use(express.json());
@@ -37,4 +43,3 @@ app.use(error);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is currently running on ${port}...`));
-

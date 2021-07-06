@@ -1,3 +1,4 @@
+require('express-async-errors');
 const asyncErrorMiddleware = require('../middleware/asyncerror');
 const admin = require('../middleware/admin');
 const authToken = require('../middleware/auth');
@@ -8,6 +9,7 @@ const Joi = require('joi');
 const { genreSchema, Genre, validate } = require('../models/genre');
 
 router.get('/', asyncErrorMiddleware(async (req, res) => {
+    throw new Error('Could not get genres')
     const genre = await Genre.find().sort('name');
     res.send(genre);
 }));
