@@ -13,4 +13,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 5000
-app.listen(port, () => winston.info(`Server is currently running on port ${port}...`));
+let server = app.listen(port, () => winston.info(`Server is currently running on port ${port}...`));
+
+module.exports = server;
